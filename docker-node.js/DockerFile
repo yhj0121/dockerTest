@@ -1,0 +1,19 @@
+#베이스 이미지 명시 alpine이미지는 가장 최소한 파일 들어있으므르ㅗ
+#npm 파일일 안들있어서 install할수가 없음
+FROM node:10
+
+WORKDIR /usr/src/app
+#원래 코드는 copy ././ 소스코드만 바꿔도 npm i됨 종속성 변경안하면 이미지 쉽게 빌드가능
+COPY package.json ./
+#여기 왜 필요하냐 원래 있던 파일이 없어질수도있음(주소에서)
+# 파일이 섞여있으니 정리가 안됨
+
+#추가적으로 필요한 파일 명시
+RUN npm install
+
+COPY ./ ./
+#추가적으로 필요한 파일 명시
+RUN npm install
+
+#컨테이너 시작시 실행될 명령어 명시
+CMD [ "node" ,"index.js"]
