@@ -8,7 +8,7 @@ const app = express();
 client.set("number", 0);
 
 app.get("/", (req, res) => {
-  client("number", (err, number) => {
+  client.get("number", (err, number) => {
     //숫자 올려주기
     client.set("number", parseInt(number) + 1);
     res.send("숫자가 1씩 올라갑니다 숫자:", number);
