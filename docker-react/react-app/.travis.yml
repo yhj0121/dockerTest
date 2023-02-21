@@ -1,0 +1,16 @@
+sudo: required #권한
+
+language: generic #언어 플랫폼 설정
+
+services: #도커 환경 구성
+  - docker
+
+before_install: #스크립트 실행전 구성 환경 (build 진행)
+  - echo "start creating an image with dockerfile"
+  - docker build -t ranjeler/react-app1 -f Dockerfile.dev .
+
+script: #(실행할 스크립트)
+  - docker run -e CI=true ranjeler/react-app1 npm run test -- --coverage
+
+after_sucess: #테스트 성공시
+  - echo "Test Sucess"
